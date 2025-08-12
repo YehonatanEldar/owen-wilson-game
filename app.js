@@ -34,6 +34,17 @@ async function newGame() {
 
     const randomFactBtn = document.getElementById('randomFactBtn');
     randomFactBtn.disabled = false;
+    randomFactBtn.style.background = ''; 
+    randomFactBtn.style.cursor = '';
+
+    const revealVideoBtn = document.getElementById('revealVideoBtn');
+    revealVideoBtn.disabled = false;
+    revealVideoBtn.style.background = ''; 
+    revealVideoBtn.style.cursor = '';
+
+    factContainer.classList.remove('show');
+
+
 }
 
 
@@ -52,7 +63,7 @@ function playWowSound() {
 
     audioElement = new Audio(currentWow.audio);
     playBtn.classList.add('playing');
-    playBtn.textContent = '♪ Playing... ♪';
+    playBtn.textContent = '♪';
 
     audioElement.play().catch(() => playBtn.textContent = 'Audio Error');
 
@@ -94,6 +105,7 @@ function showRandomFact() {
     randomFactBtn.disabled = true;
     randomFactBtn.style.background = '#7f8c8d';  // gray color
     randomFactBtn.style.cursor = 'not-allowed';
+    factContainer.classList.add('show');
 }
 
 
@@ -145,6 +157,10 @@ function checkAnswer() {
 function revealVideo() {
     const revealSection = document.getElementById('revealSection');
     const videoContainer = document.getElementById('videoContainer');
+    const revealVideoBtn = document.getElementById('revealVideoBtn');
+
+    // Prevent multiple uses
+    if (revealVideoBtn.disabled) return;
 
     revealSection.classList.add('show');
 
@@ -158,7 +174,15 @@ function revealVideo() {
     } else {
         videoContainer.innerHTML = `<p style="color: red;">No video available.</p>`;
     }
+
+    document.getElementById('playBtn').style.display = 'none';
+
+    // Disable button and style it gray
+    revealVideoBtn.disabled = true;
+    revealVideoBtn.style.background = '#7f8c8d';  // gray color
+    revealVideoBtn.style.cursor = 'not-allowed';
 }
+
 
 
 
